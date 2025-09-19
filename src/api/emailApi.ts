@@ -1,4 +1,4 @@
-// src/api/emailApi.ts
+
 import axios from 'axios';
 
 // --- SETUP AXIOS INSTANCE ---

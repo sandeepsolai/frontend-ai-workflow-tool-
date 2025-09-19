@@ -1,4 +1,4 @@
-// src/pages/DashboardPage.tsx
+
 import { useEffect, useState, useCallback } from 'react';
 import { getEmails, sendEmail, checkAvailability, createCalendarEvent } from '../api/emailApi';
 import DOMPurify from 'dompurify';

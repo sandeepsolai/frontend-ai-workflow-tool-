@@ -1,4 +1,4 @@
-    // src/pages/LoginPage.tsx
+
 export function LoginPage() {
   const handleLogin = () => {
     // Redirect the user to the backend Google OAuth route
