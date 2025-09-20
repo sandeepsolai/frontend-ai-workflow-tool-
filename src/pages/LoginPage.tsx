@@ -2,7 +2,7 @@
 export function LoginPage() {
   const handleLogin = () => {
     // Redirect the user to the backend Google OAuth route
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = 'http://frontend-ai-workflow-tool.vercel.app:5000/api/auth/google';
   };
 
   return (
