@@ -1,69 +1,106 @@
-# React + TypeScript + Vite
+# 🎨 Custom Email Workflow Tool - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **frontend application** for the Custom Email Workflow Tool.  
+It provides a responsive dashboard for email management, AI-powered reply suggestions, and Google Calendar integration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Modern UI** with React + TypeScript
+- **Responsive Dashboard** for email and calendar management
+- **Secure Authentication** with Google Oauth
+- **Real-time Email Updates**
+- **Timezone-aware Smart Scheduling**
+- **API Service Layer** for backend communication
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Framework**: React.js (with TypeScript + Vite or CRA)
+- **API Communication**: Fetch/axios with service layer
+- **Routing**: React Router
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📂 Project Structure
+
+```
+frontend/
+│── public/ # Static assets
+│
+│── src/
+│ ├── api/ # API service functions
+│ ├── assets/ # Images, fonts, and other assets
+│ ├── components/
+│ │ └── ui/ # Reusable UI components (Shadcn, custom)
+│ ├── lib/ # Utility libraries
+│ ├── pages/ # Page-level components (Dashboard, Auth, Email, Calendar)
+│ ├── App.css # Global CSS
+│ ├── App.tsx # Root App component
+│ ├── index.css # Base Tailwind styles
+│ ├── main.tsx # App entry point
+│ └── vite-env.d.ts # Vite TypeScript environment types
+│
+│── .gitignore # Git ignored files
+│── README.md # Project documentation
+│── components.json # Shadcn UI config
+│── eslint.config.js # ESLint configuration
+│── index.html # HTML entry file
+│── package-lock.json # Dependency lock file
+│── package.json # Dependencies and scripts
+│── postcss.config.js # PostCSS config (Tailwind)
+│── tailwind.config.js # Tailwind CSS configuration
+│── tsconfig.app.json # TS config for app
+│── tsconfig.json # Base TS config
+│── tsconfig.node.json # TS config for Node
+│── vite.config.ts # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Installation & Setup
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/custom-email-workflow-tool.git
+cd custom-email-workflow-tool/frontend
+```
+
+### 2️⃣ Install Dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Run the App
+```bash
+npm run dev
+```
+App will start at: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 🔑 Authentication Flow
+
+- Users register/login via backend API  
+- Google token is stored securely (httpOnly cookie/localStorage depending on setup)  
+- Protected routes are accessible only with valid token  
+
+---
+
+## 📚 Available Pages
+
+- **Login / Register** – User authentication  
+- **Dashboard** – Overview of emails and calendar events   
+- **Calendar View** – Manage and schedule meetings  
+
+---
+
+## 🧪 Testing
+
+Run tests with:
+
+```bash
+npm run test
 ```
