@@ -275,7 +275,6 @@ export function DashboardPage() {
 
   return (
     <div className="h-screen w-screen flex flex-col bg-white">
-      {/* Updated Header */}
       <header className="p-4 border-b flex items-center justify-between bg-white z-10 shrink-0">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold flex items-center" style={{ color: '#0080ee' }}>
@@ -303,7 +302,7 @@ export function DashboardPage() {
               className="capitalize"
               style={activeFilter === filter ? { backgroundColor: '#0080ee' } : {}}
             >
-              {filter} <Badge variant="outline" className="ml-2">{emailCounts[filter]}</Badge>
+              {filter} <Badge variant="outline" className="ml-2 bg-white text-gray-800 border-gray-300">{emailCounts[filter]}</Badge>
             </Button>
           ))}
         </div>
