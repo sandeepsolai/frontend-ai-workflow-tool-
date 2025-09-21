@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { getEmails, sendEmail, checkAvailability, createCalendarEvent } from '../api/emailApi';
 import DOMPurify from 'dompurify';
-import { Mail, Loader, AlertCircle, Send, CalendarPlus, CheckCircle, XCircle, LogOut, Calendar as CalendarIcon } from 'lucide-react';
+import {Loader, AlertCircle, Send, CalendarPlus, CheckCircle, XCircle, LogOut, Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import logo from '../assets/logo.jpg';
 
 // --- FINAL TYPE DEFINITION ---
 interface AnalyzedEmail {
@@ -278,7 +279,7 @@ export function DashboardPage() {
       <header className="p-4 border-b flex items-center justify-between bg-white z-10 shrink-0">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold flex items-center" style={{ color: '#0080ee' }}>
-            <Mail className="mr-3 h-7 w-7" style={{ color: '#0080ee' }} />
+            <img src={logo}  alt="Trycom AI Logo" className="mr-3 h-7 w-7" style={{ color: '#0080ee' }} />
             Trycom AI
           </h1>
           <span className="ml-2 text-gray-600">| AI Email Workflow</span>
