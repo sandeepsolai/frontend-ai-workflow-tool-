@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { TrycomLoginPage } from './pages/TrycomLoginPage';
-import { TrycomDashboardPage } from './pages/TrycomDashboardPage';
+import { TrycomLoginPage } from './pages/LoginPage';
+import { TrycomDashboardPage } from './pages/DashboardPage';
 
 function App() {
   return (
