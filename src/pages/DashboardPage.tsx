@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { getEmails, sendEmail, checkAvailability, createCalendarEvent } from '../api/emailApi';
 import DOMPurify from 'dompurify';
-import {Loader, AlertCircle, Send, CalendarPlus, CheckCircle, XCircle, LogOut, Calendar as CalendarIcon } from 'lucide-react';
+import { Loader, AlertCircle, Send, CalendarPlus, CheckCircle, XCircle, LogOut, Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -278,7 +278,7 @@ export function DashboardPage() {
       <header className="p-4 border-b flex items-center justify-between bg-white z-10 shrink-0">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold flex items-center" style={{ color: '#0080ee' }}>
-            <img src={logo}  alt="Trycom AI Logo" className="mr-3 h-7 w-7" style={{ color: '#0080ee' }} />
+            <img src={logo} alt="Trycom AI Logo" className="mr-3 h-7 w-7" style={{ color: '#0080ee' }} />
             Trycom AI
           </h1>
           <span className="ml-2 text-gray-600">| AI Email Workflow</span>
@@ -312,14 +312,20 @@ export function DashboardPage() {
           <div className="overflow-y-auto flex-grow">
             <div className="divide-y">
               {filteredEmails.map((email: AnalyzedEmail) => (
-                <div key={email.gmailMessageId} onClick={() => handleSelectEmail(email)}
-                  className={`p-4 cursor-pointer border-l-4 ${selectedEmailId === email.gmailMessageId ? 'bg-slate-100 border-primary' : 'border-transparent hover:bg-slate-50'}`}>
+                <div
+                  key={email.gmailMessageId}
+                  onClick={() => handleSelectEmail(email)}
+                  className={`p-4 cursor-pointer border-l-4 ${selectedEmailId === email.gmailMessageId ? 'bg-slate-100 border-primary' : 'border-transparent hover:bg-slate-50'}`}
+                >
                   <div className="flex justify-between items-center text-sm mb-1">
-                    <p className="font-bold truncate">{email.from.split('<')[0].trim()}</p>
+                    {/* Change sender name color */}
+                    <p className="font-bold truncate text-gray-800">{email.from.split('<')[0].trim()}</p>
                     <PriorityBadge priority={email.aiPriority} />
                   </div>
-                  <p className="font-semibold text-slate-800 truncate">{email.subject}</p>
-                  <p className="text-sm text-muted-foreground truncate">{email.snippet}</p>
+                  {/* Change subject color */}
+                  <p className="font-semibold text-gray-900 truncate">{email.subject}</p>
+                  {/* Change snippet color */}
+                  <p className="text-sm text-gray-600 truncate">{email.snippet}</p>
                 </div>
               ))}
             </div>
