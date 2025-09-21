@@ -4,7 +4,7 @@ import axios from 'axios';
 // --- SETUP AXIOS INSTANCE ---
 // This ensures the auth token is sent with every request automatically.
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ,
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://backend-ai-workflow-tool.onrender.com/api',
 });
 
 api.interceptors.request.use((config) => {

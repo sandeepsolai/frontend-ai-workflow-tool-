@@ -41,10 +41,10 @@ interface UserInfo {
 // --- SUB-COMPONENTS ---
 
 const PriorityBadge = ({ priority }: { priority: AnalyzedEmail['aiPriority'] }) => {
-  const variantMap: Record<string, 'destructive' | 'default' | 'secondary' | 'outline'> = { 
-    urgent: 'destructive', 
-    neutral: 'default', 
-    spam: 'secondary', 
+  const variantMap: Record<string, 'destructive' | 'default' | 'secondary' | 'outline'> = {
+    urgent: 'destructive',
+    neutral: 'default',
+    spam: 'secondary',
     error: 'outline',
   };
   const text = priority === 'error' ? 'AI Error' : priority;
@@ -122,22 +122,22 @@ const CalendarAssistant = ({ email }: { email: AnalyzedEmail }) => {
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">AI has detected a meeting request. Propose a time:</p>
         <div className="flex flex-wrap items-center gap-2">
-            <Popover>
-                <PopoverTrigger asChild><Button variant="outline">{date ? format(date, "PPP") : <span>Pick a date</span>}</Button></PopoverTrigger>
-                <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={date} onSelect={setDate} initialFocus /></PopoverContent>
-            </Popover>
-            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="p-2 border rounded-md text-sm" />
-            <Button onClick={handleCheckAvailability} disabled={isChecking}>{isChecking ? <Loader className="h-4 w-4 animate-spin"/> : "Check"}</Button>
+          <Popover>
+            <PopoverTrigger asChild><Button variant="outline">{date ? format(date, "PPP") : <span>Pick a date</span>}</Button></PopoverTrigger>
+            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={date} onSelect={setDate} initialFocus /></PopoverContent>
+          </Popover>
+          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="p-2 border rounded-md text-sm" />
+          <Button onClick={handleCheckAvailability} disabled={isChecking}>{isChecking ? <Loader className="h-4 w-4 animate-spin" /> : "Check"}</Button>
         </div>
         {availability !== null && (
-            <p className={`text-sm font-semibold flex items-center ${availability.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
-                {availability.isAvailable ? <CheckCircle className="h-4 w-4 mr-2" /> : <XCircle className="h-4 w-4 mr-2" />}
-                {availability.isAvailable ? "This time slot is available!" : "Conflict found. Choose another time."}
-            </p>
+          <p className={`text-sm font-semibold flex items-center ${availability.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
+            {availability.isAvailable ? <CheckCircle className="h-4 w-4 mr-2" /> : <XCircle className="h-4 w-4 mr-2" />}
+            {availability.isAvailable ? "This time slot is available!" : "Conflict found. Choose another time."}
+          </p>
         )}
         <Button onClick={handleScheduleEvent} disabled={!availability?.isAvailable || isScheduling}>
-            {isScheduling ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : null}
-            Schedule Event & Send Invite
+          {isScheduling ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : null}
+          Schedule Event & Send Invite
         </Button>
       </CardContent>
     </Card>
@@ -169,7 +169,7 @@ export function DashboardPage() {
   const [isSending, setIsSending] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'urgent' | 'neutral' | 'spam'>('all');
   const [user, setUser] = useState<UserInfo | null>(null);
-  
+
   const selectedEmail = emails.find(e => e.gmailMessageId === selectedEmailId) || null;
 
   const handleLogout = useCallback(() => {
@@ -211,14 +211,14 @@ export function DashboardPage() {
       try {
         const emailListData = await getEmails();
         setEmails(emailListData);
-      } catch (err: any) { 
+      } catch (err: any) {
         if (err.response && err.response.status === 401) {
           handleLogout();
         } else {
           setError(err.message || 'Failed to fetch emails.');
         }
-      } finally { 
-        setIsLoading(false); 
+      } finally {
+        setIsLoading(false);
       }
     };
     initialize();
@@ -248,11 +248,11 @@ export function DashboardPage() {
         references: selectedEmail.referencesHeader || selectedEmail.messageIdHeader!,
       });
       alert('Reply sent successfully!');
-    } catch (error) { 
+    } catch (error) {
       console.error("Send Email Error:", error);
       alert('Failed to send reply. Check console for details.');
-    } finally { 
-      setIsSending(false); 
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -260,7 +260,7 @@ export function DashboardPage() {
     if (activeFilter === 'all') return true;
     return email.aiPriority === activeFilter;
   });
-  
+
   const emailCounts = emails.reduce((acc, e) => {
     acc.all++;
     if (e.aiPriority === 'urgent') acc.urgent++;
@@ -273,85 +273,106 @@ export function DashboardPage() {
   if (error) return <div className="flex h-screen w-screen items-center justify-center text-red-600"><AlertCircle className="h-8 w-8 mr-4" /> <p className="text-lg">Error: {error}</p></div>;
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-slate-50">
-      <header className="p-4 border-b flex items-center justify-between bg-background z-10 shrink-0">
-        <h1 className="text-2xl font-bold flex items-center"><Mail className="mr-3 h-7 w-7 text-primary"/> AI Inbox</h1>
+    <div className="h-screen w-screen flex flex-col bg-white">
+      {/* Updated Header */}
+      <header className="p-4 border-b flex items-center justify-between bg-white z-10 shrink-0">
+        <div className="flex items-center">
+          <h1 className="text-2xl font-bold flex items-center" style={{ color: '#0080ee' }}>
+            <Mail className="mr-3 h-7 w-7" style={{ color: '#0080ee' }} />
+            Trycom AI
+          </h1>
+          <span className="ml-2 text-gray-600">| AI Email Workflow</span>
+        </div>
         <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" onClick={() => window.open('https://calendar.google.com', '_blank')}><CalendarIcon className="mr-2 h-4 w-4"/> Open Calendar</Button>
-            <Separator orientation="vertical" className="h-6 mx-2" />
-            {(['all', 'urgent', 'neutral', 'spam'] as const).map(filter => (
-              <Button key={filter} onClick={() => setActiveFilter(filter)} variant={activeFilter === filter ? 'default' : 'secondary'} size="sm" className="capitalize">
-                {filter} <Badge variant="outline" className="ml-2">{emailCounts[filter]}</Badge>
-              </Button>
-            ))}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.open('https://calendar.google.com', '_blank')}
+            className="border-gray-300"
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" /> Open Calendar
+          </Button>
+          <Separator orientation="vertical" className="h-6 mx-2" />
+          {(['all', 'urgent', 'neutral', 'spam'] as const).map(filter => (
+            <Button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              variant={activeFilter === filter ? 'default' : 'secondary'}
+              size="sm"
+              className="capitalize"
+              style={activeFilter === filter ? { backgroundColor: '#0080ee' } : {}}
+            >
+              {filter} <Badge variant="outline" className="ml-2">{emailCounts[filter]}</Badge>
+            </Button>
+          ))}
         </div>
       </header>
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-[450px] border-r bg-background flex flex-col shrink-0">
           <div className="overflow-y-auto flex-grow">
-              <div className="divide-y">
-                {filteredEmails.map((email: AnalyzedEmail) => (
-                  <div key={email.gmailMessageId} onClick={() => handleSelectEmail(email)}
-                    className={`p-4 cursor-pointer border-l-4 ${selectedEmailId === email.gmailMessageId ? 'bg-slate-100 border-primary' : 'border-transparent hover:bg-slate-50'}`}>
-                    <div className="flex justify-between items-center text-sm mb-1">
-                      <p className="font-bold truncate">{email.from.split('<')[0].trim()}</p>
-                      <PriorityBadge priority={email.aiPriority} />
-                    </div>
-                    <p className="font-semibold text-slate-800 truncate">{email.subject}</p>
-                    <p className="text-sm text-muted-foreground truncate">{email.snippet}</p>
+            <div className="divide-y">
+              {filteredEmails.map((email: AnalyzedEmail) => (
+                <div key={email.gmailMessageId} onClick={() => handleSelectEmail(email)}
+                  className={`p-4 cursor-pointer border-l-4 ${selectedEmailId === email.gmailMessageId ? 'bg-slate-100 border-primary' : 'border-transparent hover:bg-slate-50'}`}>
+                  <div className="flex justify-between items-center text-sm mb-1">
+                    <p className="font-bold truncate">{email.from.split('<')[0].trim()}</p>
+                    <PriorityBadge priority={email.aiPriority} />
                   </div>
-                ))}
-              </div>
+                  <p className="font-semibold text-slate-800 truncate">{email.subject}</p>
+                  <p className="text-sm text-muted-foreground truncate">{email.snippet}</p>
+                </div>
+              ))}
+            </div>
           </div>
           {user && <UserProfileCard user={user} onLogout={handleLogout} />}
         </aside>
         <main className="flex-1 overflow-y-auto p-6 bg-slate-100">
           {!selectedEmail ? (<div className="flex items-center justify-center h-full text-muted-foreground">Select an email to view details.</div>)
-          : (
-            <Card className="max-w-4xl mx-auto">
-              <CardHeader>
-                <div className="flex items-start justify-between">
+            : (
+              <Card className="max-w-4xl mx-auto">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
                     <div>
-                        <CardTitle className="text-2xl">{selectedEmail.subject}</CardTitle>
-                        <div className="flex items-center space-x-2 text-muted-foreground mt-2">
-                            <Avatar className="h-8 w-8"><AvatarFallback>{selectedEmail.from.charAt(0).toUpperCase()}</AvatarFallback></Avatar>
-                            <span>{selectedEmail.from}</span>
-                        </div>
+                      <CardTitle className="text-2xl">{selectedEmail.subject}</CardTitle>
+                      <div className="flex items-center space-x-2 text-muted-foreground mt-2">
+                        <Avatar className="h-8 w-8"><AvatarFallback>{selectedEmail.from.charAt(0).toUpperCase()}</AvatarFallback></Avatar>
+                        <span>{selectedEmail.from}</span>
+                      </div>
                     </div>
                     <Badge variant="outline">{new Date(selectedEmail.receivedAt).toLocaleString()}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Separator className="my-4" />
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-semibold mb-2">AI Analysis</h3>
-                  <p className="text-sm italic text-slate-700">"{selectedEmail.aiSummary}"</p>
-                </div>
-                <Separator className="my-4" />
-                <div className="space-y-4">
-                  <Card>
-                    <CardHeader><CardTitle className="text-lg flex items-center"><Send className="mr-2 h-5 w-5" /> Send Reply</CardTitle></CardHeader>
-                    <CardContent>
-                      <Textarea value={replyContent} onChange={(e) => setReplyContent(e.target.value)} rows={6} className="font-mono text-sm" placeholder="AI suggestion will appear here..."/>
-                      <div className="flex justify-end mt-2">
-                        <Button onClick={handleSendEmail} disabled={isSending}>
-                          {isSending ? <Loader className="mr-2 h-4 w-4 animate-spin"/> : <Send className="mr-2 h-4 w-4" />}
-                          {isSending ? 'Sending...' : 'Send'}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  {selectedEmail.isMeetingRequest && <CalendarAssistant email={selectedEmail} />}
-                </div>
-                <Separator className="my-4" />
-                <div className="border-t pt-4">
-                  <h3 className="font-semibold mb-2">Original Email</h3>
-                  <div className="prose max-w-none prose-sm"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedEmail.body || '') }} />
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Separator className="my-4" />
+                  <div className="bg-slate-50 p-4 rounded-lg border">
+                    <h3 className="font-semibold mb-2">AI Analysis</h3>
+                    <p className="text-sm italic text-slate-700">"{selectedEmail.aiSummary}"</p>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="space-y-4">
+                    <Card>
+                      <CardHeader><CardTitle className="text-lg flex items-center"><Send className="mr-2 h-5 w-5" /> Send Reply</CardTitle></CardHeader>
+                      <CardContent>
+                        <Textarea value={replyContent} onChange={(e) => setReplyContent(e.target.value)} rows={6} className="font-mono text-sm" placeholder="AI suggestion will appear here..." />
+                        <div className="flex justify-end mt-2">
+                          <Button onClick={handleSendEmail} disabled={isSending}>
+                            {isSending ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
+                            {isSending ? 'Sending...' : 'Send'}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    {selectedEmail.isMeetingRequest && <CalendarAssistant email={selectedEmail} />}
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="border-t pt-4">
+                    <h3 className="font-semibold mb-2">Original Email</h3>
+                    <div className="prose max-w-none prose-sm"
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedEmail.body || '') }} />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
         </main>
       </div>
     </div>
