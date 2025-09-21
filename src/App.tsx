@@ -1,17 +1,15 @@
-// src/App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage';
-import { DashboardPage } from './pages/DashboardPage';
+import { TrycomLoginPage } from './pages/TrycomLoginPage';
+import { TrycomDashboardPage } from './pages/TrycomDashboardPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-background text-foreground">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          {/* We can add a login route as well for clarity */}
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<TrycomLoginPage />} />
+          <Route path="/dashboard" element={<TrycomDashboardPage />} />
+          <Route path="/login" element={<TrycomLoginPage />} />
         </Routes>
       </main>
     </BrowserRouter>
